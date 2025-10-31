@@ -8,12 +8,8 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun SubmissionForm() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        // Form content will be here
-    }
-}
+fun SubmissionForm(modifier: Modifier = Modifier) {
+    var nama by remember { mutableStateOf("") }
+    var alamat by remember { mutableStateOf("") }
+    var gender by remember { mutableStateOf("") }
+    var statusPerkawinan by remember { mutableStateOf("") }
