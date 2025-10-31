@@ -18,3 +18,8 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
     var submittedAlamat by remember { mutableStateOf("") }
     var submittedGender by remember { mutableStateOf("") }
     var submittedStatus by remember { mutableStateOf("") }
+
+    val genderList = listOf(
+        stringResource(R.string.gender_laki),
+        stringResource(R.string.gender_perempuan)
+    )
