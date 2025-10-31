@@ -70,4 +70,12 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
                     .padding(vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                RadioButton(
+                    selected = (gender == item),
+                    onClick = { gender = item }
+                )
+                Text(text = item, modifier = Modifier.padding(start = 4.dp))
+            }
+        }
+            }
     }
