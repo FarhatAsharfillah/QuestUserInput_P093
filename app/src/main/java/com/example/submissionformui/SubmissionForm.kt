@@ -112,6 +112,21 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
         )
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        Button(
+            onClick = {
+                submittedNama = nama
+                submittedGender = gender
+                submittedAlamat = alamat
+                submittedStatus = statusPerkawinan
+            },
+            enabled = nama.isNotEmpty() && alamat.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.btn_submit))
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
             }
             }
     }
