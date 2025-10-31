@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 
@@ -22,4 +23,10 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
     val genderList = listOf(
         stringResource(R.string.gender_laki),
         stringResource(R.string.gender_perempuan)
+    )
+
+    val statusList = listOf(
+        stringResource(R.string.status_janda),
+        stringResource(R.string.status_lajang),
+        stringResource(R.string.status_duda)
     )
