@@ -84,5 +84,15 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
             text = stringResource(R.string.label_status_perkawinan),
             style = MaterialTheme.typography.bodyLarge
         )
+        statusList.forEach { item ->
+            Row(
+                modifier = Modifier
+                    .selectable(
+                        selected = (statusPerkawinan == item),
+                        onClick = { statusPerkawinan = item }
+                    )
+                    .padding(vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
             }
     }
