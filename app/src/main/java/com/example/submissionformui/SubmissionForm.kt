@@ -54,4 +54,9 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
         )
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = stringResource(R.string.label_jenis_kelamin),
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
