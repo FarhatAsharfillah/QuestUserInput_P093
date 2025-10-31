@@ -45,4 +45,13 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(bottom = 24.dp)
         )
+
+        OutlinedTextField(
+            value = nama,
+            onValueChange = { nama = it },
+            label = { Text(stringResource(R.string.label_nama)) },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
