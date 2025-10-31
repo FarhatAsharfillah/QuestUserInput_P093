@@ -3,6 +3,7 @@ package com.example.submissionformui
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,3 +31,11 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
         stringResource(R.string.status_lajang),
         stringResource(R.string.status_duda)
     )
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
