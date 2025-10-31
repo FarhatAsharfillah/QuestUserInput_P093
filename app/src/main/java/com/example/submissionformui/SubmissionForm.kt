@@ -2,6 +2,7 @@ package com.example.submissionformui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -9,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-
+import androidx.compose.ui.semantics.Role // Import yang diperlukan untuk aksesibilitas
 
 @Composable
 fun SubmissionForm(modifier: Modifier = Modifier) {
@@ -57,51 +58,78 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // --- Perbaikan untuk Jenis Kelamin ---
         Text(
             text = stringResource(R.string.label_jenis_kelamin),
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Start) // Pastikan Teks ini rata kiri
         )
-        genderList.forEach { item ->
-            Row(
-                modifier = Modifier
-                    .selectable(
+        // Gunakan Modifier.selectableGroup() untuk aksesibilitas
+        Column(Modifier.selectableGroup()) {
+            genderList.forEach { item ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        // Mengatur padding awal 16.dp pada Row agar Radio Button sejajar dengan konten TextField di atasnya.
+                        // Default padding RadioButton di Jetpack Compose sedikit lebih besar, jadi 16.dp terlihat lebih rapi.
+                        .padding(start = 16.dp)
+                        .selectable(
+                            selected = (gender == item),
+                            onClick = { gender = item },
+                            role = Role.RadioButton // Tambahkan Role untuk aksesibilitas
+                        )
+                        .padding(vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Setel onClick ke null. Klik ditangani oleh Row melalui selectable() untuk area klik yang lebih luas.
+                    RadioButton(
                         selected = (gender == item),
-                        onClick = { gender = item }
+                        onClick = null // <--- PENTING: Diubah menjadi null
                     )
-                    .padding(vertical = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                RadioButton(
-                    selected = (gender == item),
-                    onClick = { gender = item }
-                )
-                Text(text = item, modifier = Modifier.padding(start = 4.dp))
+                    Text(text = item, modifier = Modifier.padding(start = 4.dp))
+                }
             }
         }
+        // --- Akhir Perbaikan Jenis Kelamin ---
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // --- Perbaikan untuk Status Perkawinan ---
         Text(
             text = stringResource(R.string.label_status_perkawinan),
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Start) // Pastikan Teks ini rata kiri
         )
-        statusList.forEach { item ->
-            Row(
-                modifier = Modifier
-                    .selectable(
+        // Gunakan Modifier.selectableGroup() untuk aksesibilitas
+        Column(Modifier.selectableGroup()) {
+            statusList.forEach { item ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        // Mengatur padding awal 16.dp pada Row agar Radio Button sejajar dengan konten TextField.
+                        .padding(start = 16.dp)
+                        .selectable(
+                            selected = (statusPerkawinan == item),
+                            onClick = { statusPerkawinan = item },
+                            role = Role.RadioButton // Tambahkan Role untuk aksesibilitas
+                        )
+                        .padding(vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Setel onClick ke null. Klik ditangani oleh Row melalui selectable() untuk area klik yang lebih luas.
+                    RadioButton(
                         selected = (statusPerkawinan == item),
-                        onClick = { statusPerkawinan = item }
+                        onClick = null // <--- PENTING: Diubah menjadi null
                     )
-                    .padding(vertical = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                RadioButton(
-                    selected = (statusPerkawinan == item),
-                    onClick = { statusPerkawinan = item }
-                )
-                Text(text = item, modifier = Modifier.padding(start = 4.dp))
+                    Text(text = item, modifier = Modifier.padding(start = 4.dp))
+                }
             }
         }
+        // --- Akhir Perbaikan Status Perkawinan ---
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -109,6 +137,8 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
             value = alamat,
             onValueChange = { alamat = it },
             label = { Text(stringResource(R.string.label_alamat)) },
+            // Ubah label menjadi 'Alamat Lengkap' agar sesuai dengan Gambar 2
+            // Perhatikan: Jika string resource Anda adalah 'label_alamat', pastikan isinya adalah "Alamat Lengkap"
             modifier = Modifier.fillMaxWidth()
         )
 

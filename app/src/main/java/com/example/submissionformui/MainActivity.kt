@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SubmissionFormUITheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    greeting(
+                    SubmissionForm(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
