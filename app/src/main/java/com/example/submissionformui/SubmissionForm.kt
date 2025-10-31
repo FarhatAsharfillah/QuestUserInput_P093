@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
@@ -127,6 +128,24 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
         }
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        if (submittedNama.isNotEmpty()) {
+            Card(
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF2C2C2C)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(140.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text("${stringResource(R.string.output_nama)} $submittedNama", color = Color.White)
+                    Text("${stringResource(R.string.output_gender)} $submittedGender", color = Color.White)
+                    Text("${stringResource(R.string.output_status)} $submittedStatus", color = Color.White)
+                    Text("${stringResource(R.string.output_alamat)} $submittedAlamat", color = Color.White)
+                }
             }
-            }
+        }
     }
+}
