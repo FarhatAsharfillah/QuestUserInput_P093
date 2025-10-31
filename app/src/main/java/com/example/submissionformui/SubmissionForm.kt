@@ -77,5 +77,7 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
                 Text(text = item, modifier = Modifier.padding(start = 4.dp))
             }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
             }
     }
