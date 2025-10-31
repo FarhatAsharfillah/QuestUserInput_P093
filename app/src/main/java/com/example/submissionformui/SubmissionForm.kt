@@ -94,5 +94,15 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
                     .padding(vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                RadioButton(
+                    selected = (statusPerkawinan == item),
+                    onClick = { statusPerkawinan = item }
+                )
+                Text(text = item, modifier = Modifier.padding(start = 4.dp))
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+            }
             }
     }
