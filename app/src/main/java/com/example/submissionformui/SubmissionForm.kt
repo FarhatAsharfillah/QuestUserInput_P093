@@ -13,3 +13,8 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
     var alamat by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
     var statusPerkawinan by remember { mutableStateOf("") }
+
+    var submittedNama by remember { mutableStateOf("") }
+    var submittedAlamat by remember { mutableStateOf("") }
+    var submittedGender by remember { mutableStateOf("") }
+    var submittedStatus by remember { mutableStateOf("") }
