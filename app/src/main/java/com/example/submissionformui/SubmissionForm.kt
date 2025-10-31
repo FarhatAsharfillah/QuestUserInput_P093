@@ -79,5 +79,10 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = stringResource(R.string.label_status_perkawinan),
+            style = MaterialTheme.typography.bodyLarge
+        )
             }
     }
