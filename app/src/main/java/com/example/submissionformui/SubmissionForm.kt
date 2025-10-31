@@ -1,6 +1,7 @@
 package com.example.submissionformui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -59,4 +60,14 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
             text = stringResource(R.string.label_jenis_kelamin),
             style = MaterialTheme.typography.bodyLarge
         )
+        genderList.forEach { item ->
+            Row(
+                modifier = Modifier
+                    .selectable(
+                        selected = (gender == item),
+                        onClick = { gender = item }
+                    )
+                    .padding(vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
     }
