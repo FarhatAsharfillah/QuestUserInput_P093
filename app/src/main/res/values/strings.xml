@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SubmissionFormUI</string>
     <string name="form_title">Formulir Pendaftaran</string>
+    <string name="label_nama">Nama Lengkap</string>
+    <string name="label_alamat">Alamat Lengkap</string>
+    <string name="label_jenis_kelamin">Jenis Kelamin</string
 </resources>
