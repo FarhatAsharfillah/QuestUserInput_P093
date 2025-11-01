@@ -10,7 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.semantics.Role // Import yang diperlukan untuk aksesibilitas
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+
+// Menggunakan warna ungu dari gambar (Material Purple 500)
+val Purple500 = Color(0xFF673AB7)
+val CardBackground = Color.White // Warna Card untuk Form
 
 @Composable
 fun SubmissionForm(modifier: Modifier = Modifier) {
@@ -36,135 +42,165 @@ fun SubmissionForm(modifier: Modifier = Modifier) {
     )
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Text(
-            text = stringResource(R.string.form_title),
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
-
-        OutlinedTextField(
-            value = nama,
-            onValueChange = { nama = it },
-            label = { Text(stringResource(R.string.label_nama)) },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // --- Perbaikan untuk Jenis Kelamin ---
-        Text(
-            text = stringResource(R.string.label_jenis_kelamin),
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Start) // Pastikan Teks ini rata kiri
-        )
-        // Gunakan Modifier.selectableGroup() untuk aksesibilitas
-        Column(Modifier.selectableGroup()) {
-            genderList.forEach { item ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        // Mengatur padding awal 16.dp pada Row agar Radio Button sejajar dengan konten TextField di atasnya.
-                        // Default padding RadioButton di Jetpack Compose sedikit lebih besar, jadi 16.dp terlihat lebih rapi.
-                        .padding(start = 16.dp)
-                        .selectable(
-                            selected = (gender == item),
-                            onClick = { gender = item },
-                            role = Role.RadioButton // Tambahkan Role untuk aksesibilitas
-                        )
-                        .padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Setel onClick ke null. Klik ditangani oleh Row melalui selectable() untuk area klik yang lebih luas.
-                    RadioButton(
-                        selected = (gender == item),
-                        onClick = null // <--- PENTING: Diubah menjadi null
-                    )
-                    Text(text = item, modifier = Modifier.padding(start = 4.dp))
-                }
-            }
-        }
-        // --- Akhir Perbaikan Jenis Kelamin ---
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // --- Perbaikan untuk Status Perkawinan ---
-        Text(
-            text = stringResource(R.string.label_status_perkawinan),
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Start) // Pastikan Teks ini rata kiri
-        )
-        // Gunakan Modifier.selectableGroup() untuk aksesibilitas
-        Column(Modifier.selectableGroup()) {
-            statusList.forEach { item ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        // Mengatur padding awal 16.dp pada Row agar Radio Button sejajar dengan konten TextField.
-                        .padding(start = 16.dp)
-                        .selectable(
-                            selected = (statusPerkawinan == item),
-                            onClick = { statusPerkawinan = item },
-                            role = Role.RadioButton // Tambahkan Role untuk aksesibilitas
-                        )
-                        .padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Setel onClick ke null. Klik ditangani oleh Row melalui selectable() untuk area klik yang lebih luas.
-                    RadioButton(
-                        selected = (statusPerkawinan == item),
-                        onClick = null // <--- PENTING: Diubah menjadi null
-                    )
-                    Text(text = item, modifier = Modifier.padding(start = 4.dp))
-                }
-            }
-        }
-        // --- Akhir Perbaikan Status Perkawinan ---
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = alamat,
-            onValueChange = { alamat = it },
-            label = { Text(stringResource(R.string.label_alamat)) },
-            // Ubah label menjadi 'Alamat Lengkap' agar sesuai dengan Gambar 2
-            // Perhatikan: Jika string resource Anda adalah 'label_alamat', pastikan isinya adalah "Alamat Lengkap"
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = {
-                submittedNama = nama
-                submittedGender = gender
-                submittedAlamat = alamat
-                submittedStatus = statusPerkawinan
-            },
-            enabled = nama.isNotEmpty() && alamat.isNotEmpty(),
-            modifier = Modifier.fillMaxWidth()
+        // --- 1. HEADER UNGU ---
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            color = Purple500
         ) {
-            Text(stringResource(R.string.btn_submit))
+            Text(
+                text = stringResource(R.string.form_title),
+                style = MaterialTheme.typography.headlineSmall,
+                color = Color.White,
+                modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
+            )
         }
+        // --- END HEADER ---
 
-        Spacer(modifier = Modifier.height(24.dp))
+        // --- WRAPPER CARD PUTIH ---
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                // Hapus offset(y = (-16).dp) agar Card tidak overlap dengan Header
+                .padding(horizontal = 24.dp, vertical = 16.dp), // Tambahkan padding vertikal agar berjarak dari header dan bottom
+            colors = CardDefaults.cardColors(containerColor = CardBackground),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp) // Tambahkan shadow
+        ) {
+            // --- CONTENT FORM DI DALAM CARD ---
+            Column(
+                // Tambahkan padding di dalam Card (padding = 24.dp di semua sisi)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
+
+                // NAMA LENGKAP
+                Text(
+                    text = stringResource(R.string.label_nama).uppercase(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                OutlinedTextField(
+                    value = nama,
+                    onValueChange = { nama = it },
+                    label = { Text(text = "Isian nama lengkap", style = MaterialTheme.typography.bodyMedium) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // JENIS KELAMIN
+                Text(
+                    text = stringResource(R.string.label_jenis_kelamin).uppercase(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                Column(Modifier.selectableGroup()) {
+                    genderList.forEach { item ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .selectable(
+                                    selected = (gender == item),
+                                    onClick = { gender = item },
+                                    role = Role.RadioButton
+                                )
+                                .padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = (gender == item),
+                                onClick = null
+                            )
+                            Text(text = item, modifier = Modifier.padding(start = 4.dp))
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // STATUS PERKAWINAN
+                Text(
+                    text = stringResource(R.string.label_status_perkawinan).uppercase(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                Column(Modifier.selectableGroup()) {
+                    statusList.forEach { item ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .selectable(
+                                    selected = (statusPerkawinan == item),
+                                    onClick = { statusPerkawinan = item },
+                                    role = Role.RadioButton
+                                )
+                                .padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = (statusPerkawinan == item),
+                                onClick = null
+                            )
+                            Text(text = item, modifier = Modifier.padding(start = 4.dp))
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // ALAMAT
+                Text(
+                    text = stringResource(R.string.label_alamat).uppercase(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                OutlinedTextField(
+                    value = alamat,
+                    onValueChange = { alamat = it },
+                    label = { Text(text = "Alamat", style = MaterialTheme.typography.bodyMedium) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // TOMBOL SUBMIT (Warna Ungu)
+                Button(
+                    onClick = {
+                        submittedNama = nama
+                        submittedGender = gender
+                        submittedAlamat = alamat
+                        submittedStatus = statusPerkawinan
+                    },
+                    enabled = nama.isNotEmpty() && alamat.isNotEmpty(),
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Purple500)
+                ) {
+                    Text(stringResource(R.string.btn_submit))
+                }
+            }
+            // --- END CONTENT FORM DI DALAM CARD ---
+        }
+        // --- END WRAPPER CARD PUTIH ---
+
+        // Memindahkan tampilan output ke luar Card
+        Spacer(modifier = Modifier.height(8.dp))
 
         if (submittedNama.isNotEmpty()) {
             Card(
                 colors = CardDefaults.cardColors(containerColor = Color(0xFF2C2C2C)),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(140.dp)
+                    .padding(horizontal = 24.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
